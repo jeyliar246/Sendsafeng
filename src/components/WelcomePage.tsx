@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Package, Smartphone, Share, MoreVertical, X, Apple, Download } from 'lucide-react';
+import { Package, Smartphone, Share, MoreVertical, X, Apple, Download, Bike } from 'lucide-react';
 
 const WelcomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -10,16 +10,13 @@ const WelcomePage: React.FC = () => {
   const [appStoreType, setAppStoreType] = useState<'apple' | 'google'>('apple');
 
   useEffect(() => {
-    console.log('useEffect triggered, showInstructions:', showInstructions);
     // Start loading after showing instructions
     if (!showInstructions) {
-      console.log('Starting loading interval');
       const interval = setInterval(() => {
         setLoadingProgress(prev => {
           const newProgress = prev >= 100 ? 100 : prev + 1;
           if (newProgress >= 100) {
             clearInterval(interval);
-            console.log('Loading complete, navigating to /home');
             // Navigate to home page after loading completes
             setTimeout(() => {
               navigate('/home');
@@ -30,16 +27,13 @@ const WelcomePage: React.FC = () => {
       }, 100);
 
       return () => {
-        console.log('Cleaning up interval');
         clearInterval(interval);
       };
     }
   }, [navigate, showInstructions]);
 
   const handleContinue = () => {
-    console.log('Continue button clicked, hiding instructions');
     setShowInstructions(false);
-    console.log('showInstructions set to false');
   };
 
   const handleAppStoreClick = (type: 'apple' | 'google') => {
@@ -49,11 +43,6 @@ const WelcomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-[#0a1a0a] flex flex-col justify-center items-center relative overflow-hidden px-4">
-      {/* Debug Info */}
-      <div className="fixed top-4 right-4 bg-white/10 text-white text-xs p-2 rounded z-50">
-        Instructions: {showInstructions ? 'Visible' : 'Hidden'} | Progress: {loadingProgress}%
-      </div>
-      
       {/* Installation Instructions */}
       {showInstructions && (
         <div className="z-20 w-full max-w-2xl">
