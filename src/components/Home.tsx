@@ -95,9 +95,8 @@ const Home: React.FC = () => {
       <div className="container mx-auto px-4 z-10 w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold mb-4 leading-tight">
-            Book Your 
-            <span className="block bg-gradient-to-r from-[#00ff9d] via-[#22c55e] to-[#16a34a] text-transparent bg-clip-text">
-              Delivery
+            <span className="bg-gradient-to-r from-[#00ff9d] via-[#22c55e] to-[#16a34a] text-transparent bg-clip-text">
+              Book Your Delivery
             </span>
           </h1>
           <p className="text-lg text-white/80">
@@ -107,15 +106,15 @@ const Home: React.FC = () => {
 
         <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
           {/* Progress indicator */}
-          <div className="flex justify-between mb-8">
+          <div className="flex justify-between mb-8 relative">
             {steps.map((step, index) => {
               const Icon = step.icon;
               const isActive = currentStep === step.number;
               const isCompleted = currentStep > step.number;
               
               return (
-                <div key={step.number} className="flex flex-col items-center flex-1">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-all duration-300 ${
+                <div key={step.number} className="flex flex-col items-center flex-1 relative">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-all duration-300 z-10 ${
                     isCompleted 
                       ? 'bg-[#00ff9d] text-black' 
                       : isActive 
@@ -129,11 +128,6 @@ const Home: React.FC = () => {
                   }`}>
                     {step.title}
                   </span>
-                  {index < steps.length - 1 && (
-                    <div className={`absolute w-full h-0.5 top-5 left-1/2 transform -translate-y-1/2 ${
-                      isCompleted ? 'bg-[#00ff9d]' : 'bg-white/20'
-                    }`} style={{ width: 'calc(100% - 2.5rem)', marginLeft: '1.25rem' }}></div>
-                  )}
                 </div>
               );
             })}

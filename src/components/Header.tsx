@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Package, Apple, Play, Gift, Bike } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import ThemeToggle from './ThemeToggle';
 
 const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -82,6 +83,7 @@ const Header: React.FC = () => {
         </nav>
         
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <a 
             href="https://apps.apple.com/us/app/sendsafe/id6612034715" 
             className="flex items-center gap-2 bg-white/5 hover:bg-white/10 px-4 py-2 rounded-full text-white font-medium transition-all duration-300 border border-white/10 hover:border-[#00ff9d]/50"
