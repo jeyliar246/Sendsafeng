@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Package, User, Phone, Clock, Zap, ArrowRight, ArrowLeft, Check } from 'lucide-react';
+import { MapPin, Package, User, Phone, Clock, Zap, ArrowRight, ArrowLeft, Check, Truck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
@@ -383,6 +383,27 @@ const Home: React.FC = () => {
                       <h3 className="text-lg font-bold mb-1 text-white">Standard Delivery</h3>
                       <p className="text-sm mb-2 text-white/80">Get your package delivered within 24 hours</p>
                       <div className="text-xl font-bold text-[#22c55e]">NGN 4,000</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Interstate Delivery */}
+                <div 
+                  className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
+                    formData.deliveryType === 'Interstate Delivery' 
+                      ? 'border-[#00ff9d] bg-[#00ff9d]/10' 
+                      : 'border-white/20 bg-white/5 hover:border-[#00ff9d]/50'
+                  }`}
+                  onClick={() => handleDeliveryTypeSelect('Interstate Delivery')}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-[#3b82f6] to-[#2563eb] rounded-full flex items-center justify-center">
+                      <Truck className="w-6 h-6 text-black" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold mb-1 text-white">Interstate Delivery</h3>
+                      <p className="text-sm mb-2 text-white/80">Get your package delivered within 1-3 days</p>
+                      <div className="text-xl font-bold text-[#3b82f6]">NGN 12,500</div>
                     </div>
                   </div>
                 </div>

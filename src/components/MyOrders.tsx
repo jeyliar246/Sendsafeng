@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Package, MapPin, Clock, User, Phone, Zap, Calendar, ChevronRight } from 'lucide-react';
+import { Package, MapPin, Clock, User, Phone, Zap, Calendar, ChevronRight, Truck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface Order {
@@ -80,11 +80,15 @@ const MyOrders: React.FC = () => {
   };
 
   const getStatusIcon = (deliveryType: string) => {
-    return deliveryType === 'Instant Delivery' ? Zap : Clock;
+    if (deliveryType === 'Instant Delivery') return Zap;
+    if (deliveryType === 'Interstate Delivery') return Truck;
+    return Clock;
   };
 
   const getPrice = (deliveryType: string) => {
-    return deliveryType === 'Instant Delivery' ? 'NGN 6,500' : 'NGN 4,000';
+    if (deliveryType === 'Instant Delivery') return 'NGN 6,500';
+    if (deliveryType === 'Interstate Delivery') return 'NGN 12,500';
+    return 'NGN 4,000';
   };
 
   if (selectedOrder) {
