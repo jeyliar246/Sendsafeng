@@ -5,6 +5,7 @@ import Home from './components/Home';
 import About from './components/About';
 import SubscriptionPackages from './components/SubscriptionPackages';
 import SubscriptionSelection from './components/SubscriptionSelection';
+import DeliverySummary from './components/DeliverySummary';
 import BottomNavigation from './components/BottomNavigation';
 import TermsAndPrivacy from './components/TermsAndPrivacy';
 import { AnimationProvider } from './context/AnimationContext';
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/subscriptions" element={<SubscriptionPackages />} />
                 <Route path="/subscription-selection" element={<SubscriptionSelection />} />
+                <Route path="/delivery-summary" element={<DeliverySummary />} />
                 <Route path="/terms" element={<TermsAndPrivacy />} />
               </Routes>
             </main>

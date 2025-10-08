@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { MapPin, Package, User, Phone, Clock, Zap, ArrowRight, ArrowLeft, Check } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const { isDarkMode } = useTheme();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     pickupAddress: '',
     dropOffAddress: '',
@@ -63,22 +65,12 @@ const Home: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    console.log('Delivery booking submitted:', formData);
-    alert('Delivery booking submitted successfully!');
-    // Reset form
-    setFormData({
-      pickupAddress: '',
-      dropOffAddress: '',
-      itemName: '',
-      itemDescription: '',
-      senderName: '',
-      senderPhone: '',
-      receiverName: '',
-      receiverPhone: '',
-      deliveryType: '',
-      specialInstructions: ''
+    // Navigate to summary page with form data
+    navigate('/delivery-summary', { 
+      state: { 
+        deliveryData: formData 
+      } 
     });
-    setCurrentStep(1);
   };
 
   const steps = [
