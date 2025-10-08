@@ -84,7 +84,7 @@ const MyOrders: React.FC = () => {
   };
 
   const getPrice = (deliveryType: string) => {
-    return deliveryType === 'Instant Delivery' ? 'NGN 6,500' : 'NGN 3,000';
+    return deliveryType === 'Instant Delivery' ? 'NGN 6,500' : 'NGN 4,000';
   };
 
   if (selectedOrder) {
