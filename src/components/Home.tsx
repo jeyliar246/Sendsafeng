@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { MapPin, Package, User, Phone, Clock, Zap, ArrowRight, ArrowLeft, Check } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
-  const { isDarkMode } = useTheme();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     pickupAddress: '',
@@ -81,16 +79,10 @@ const Home: React.FC = () => {
   ];
 
   return (
-    <section className={`min-h-screen pt-20 pb-20 flex flex-col justify-center items-center relative ${
-      isDarkMode ? 'bg-gradient-to-b from-black to-[#0a1a0a]' : 'bg-gradient-to-b from-gray-50 to-gray-100'
-    }`}>
+    <section className="min-h-screen pt-20 pb-20 flex flex-col justify-center items-center relative bg-gradient-to-b from-black to-[#0a1a0a]">
       {/* Animated background elements */}
-      <div className={`absolute top-1/4 left-1/4 w-64 h-64 rounded-full blur-3xl animate-pulse-slow ${
-        isDarkMode ? 'bg-[#00ff9d]/20' : 'bg-[#00ff9d]/10'
-      }`}></div>
-      <div className={`absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full blur-3xl animate-pulse-slower ${
-        isDarkMode ? 'bg-[#22c55e]/20' : 'bg-[#22c55e]/10'
-      }`}></div>
+      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#00ff9d]/20 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-[#22c55e]/20 rounded-full blur-3xl animate-pulse-slower"></div>
       
       <div className="container mx-auto px-4 z-10 w-full max-w-md">
         <div className="text-center mb-8">
@@ -99,18 +91,12 @@ const Home: React.FC = () => {
               Book Your Delivery
             </span>
           </h1>
-          <p className={`text-lg ${
-            isDarkMode ? 'text-white/80' : 'text-gray-600'
-          }`}>
+          <p className="text-lg text-white/80">
             Fast, reliable, and secure delivery services
           </p>
         </div>
 
-        <div className={`backdrop-blur-sm rounded-2xl p-6 border ${
-          isDarkMode 
-            ? 'bg-white/5 border-white/10' 
-            : 'bg-white/80 border-gray-200 shadow-lg'
-        }`}>
+        <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
           {/* Progress indicator */}
           <div className="flex justify-between mb-8 relative">
             {steps.map((step, index) => {
@@ -125,18 +111,14 @@ const Home: React.FC = () => {
                       ? 'bg-[#00ff9d] text-black' 
                       : isActive 
                         ? 'bg-[#00ff9d] text-black' 
-                        : isDarkMode 
-                          ? 'bg-white/20 text-white/60' 
-                          : 'bg-gray-200 text-gray-600'
+                        : 'bg-white/20 text-white/60'
                   }`}>
                     {isCompleted ? <Check className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
                   </div>
                   <span className={`text-xs font-medium ${
                     isActive 
                       ? 'text-[#00ff9d]' 
-                      : isDarkMode 
-                        ? 'text-white/60' 
-                        : 'text-gray-600'
+                      : 'text-white/60'
                   }`}>
                     {step.title}
                   </span>
@@ -148,16 +130,12 @@ const Home: React.FC = () => {
           {/* Step 1: Addresses */}
           {currentStep === 1 && (
               <div className="space-y-6">
-                <h2 className={`text-xl font-bold text-center mb-6 ${
-                  isDarkMode ? 'text-white' : 'text-gray-900'
-                }`}>Pickup & Drop-off Addresses</h2>
+                <h2 className="text-xl font-bold text-center mb-6 text-white">Pickup & Drop-off Addresses</h2>
                 
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <label className={`flex items-center gap-2 font-medium ${
-                      isDarkMode ? 'text-white' : 'text-gray-900'
-                    }`}>
-                      <MapPin className="w-5 h-5 text-[#00ff9d]" />
+                    <label className="flex items-center gap-2 text-white font-medium">
+                      <MapPin className="w-5 h-5 text-pink-500" />
                       Pickup Address *
                     </label>
                     <textarea
@@ -165,21 +143,15 @@ const Home: React.FC = () => {
                       value={formData.pickupAddress}
                       onChange={handleInputChange}
                       placeholder="Enter pickup address..."
-                      className={`w-full p-4 border rounded-xl focus:border-[#00ff9d] focus:outline-none resize-none ${
-                        isDarkMode 
-                          ? 'bg-white/10 border-white/20 text-white placeholder-white/60' 
-                          : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
-                      }`}
+                      className="w-full p-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:border-[#00ff9d] focus:outline-none resize-none"
                       rows={3}
                       required
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label className={`flex items-center gap-2 font-medium ${
-                      isDarkMode ? 'text-white' : 'text-gray-900'
-                    }`}>
-                      <MapPin className="w-5 h-5 text-[#22c55e]" />
+                    <label className="flex items-center gap-2 text-white font-medium">
+                      <MapPin className="w-5 h-5 text-green-500" />
                       Drop-off Address *
                     </label>
                     <textarea
@@ -187,11 +159,7 @@ const Home: React.FC = () => {
                       value={formData.dropOffAddress}
                       onChange={handleInputChange}
                       placeholder="Enter drop-off address..."
-                      className={`w-full p-4 border rounded-xl focus:border-[#00ff9d] focus:outline-none resize-none ${
-                        isDarkMode 
-                          ? 'bg-white/10 border-white/20 text-white placeholder-white/60' 
-                          : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
-                      }`}
+                      className="w-full p-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:border-[#00ff9d] focus:outline-none resize-none"
                       rows={3}
                       required
                     />

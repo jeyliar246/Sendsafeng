@@ -7,10 +7,10 @@ const BottomNavigation: React.FC = () => {
 
   const navItems = [
     {
-      path: '/',
+      path: '/home',
       icon: Home,
       label: 'Home',
-      active: location.pathname === '/'
+      active: location.pathname === '/home'
     },
     {
       path: '/about',
