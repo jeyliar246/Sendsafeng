@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neon-green: #00ff9d;
+  --bright-green: #22c55e;
+  --dark-green: #16a34a;
+  --black: #000000;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #000000;
+  color: white;
+}
+
+/* Bike animation */
+.bike-container {
+  position: relative;
+  height: 24px;
+  overflow: hidden;
+  width: 100vw;
+}
+
+.bike {
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: rideBike 15s linear infinite;
+}
+
+@keyframes rideBike {
+  from {
+    transform: translateX(-100px);
+  }
+  to {
+    transform: translateX(calc(200vw));
+  }
+}
+
+/* Animation classes */
+.animate-fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 1s ease forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 1s ease forwards;
+}
+
+.animate-pulse-slow {
+  animation: pulse 4s infinite;
+}
+
+.animate-pulse-slower {
+  animation: pulse 6s infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* Perspective utility classes */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.rotate-y-10 {
+  transform: rotateY(10deg);
+}
+
+.rotate-x-5 {
+  transform: rotateX(5deg);
+}
+
+.hover\:rotate-y-0:hover {
+  transform: rotateY(0);
+}
+
+.hover\:rotate-x-0:hover {
+  transform: rotateX(0);
+}
+
+.translate-y-10 {
+  transform: translateY(40px);
+}
