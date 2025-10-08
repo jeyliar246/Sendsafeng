@@ -10,28 +10,36 @@ const WelcomePage: React.FC = () => {
   const [appStoreType, setAppStoreType] = useState<'apple' | 'google'>('apple');
 
   useEffect(() => {
+    console.log('useEffect triggered, showInstructions:', showInstructions);
     // Start loading after showing instructions
     if (!showInstructions) {
+      console.log('Starting loading interval');
       const interval = setInterval(() => {
         setLoadingProgress(prev => {
-          if (prev >= 100) {
+          const newProgress = prev >= 100 ? 100 : prev + 1;
+          if (newProgress >= 100) {
             clearInterval(interval);
+            console.log('Loading complete, navigating to /home');
             // Navigate to home page after loading completes
             setTimeout(() => {
               navigate('/home');
             }, 500);
-            return 100;
           }
-          return prev + 1; // 1% per 100ms = 10 seconds total
+          return newProgress;
         });
       }, 100);
 
-      return () => clearInterval(interval);
+      return () => {
+        console.log('Cleaning up interval');
+        clearInterval(interval);
+      };
     }
   }, [navigate, showInstructions]);
 
   const handleContinue = () => {
+    console.log('Continue button clicked, hiding instructions');
     setShowInstructions(false);
+    console.log('showInstructions set to false');
   };
 
   const handleAppStoreClick = (type: 'apple' | 'google') => {
@@ -41,6 +49,11 @@ const WelcomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-[#0a1a0a] flex flex-col justify-center items-center relative overflow-hidden px-4">
+      {/* Debug Info */}
+      <div className="fixed top-4 right-4 bg-white/10 text-white text-xs p-2 rounded z-50">
+        Instructions: {showInstructions ? 'Visible' : 'Hidden'} | Progress: {loadingProgress}%
+      </div>
+      
       {/* Installation Instructions */}
       {showInstructions && (
         <div className="z-20 w-full max-w-2xl">
@@ -153,7 +166,7 @@ const WelcomePage: React.FC = () => {
 
       {/* Loading Screen */}
       {!showInstructions && (
-        <div className="z-10 text-center">
+        <div className="z-10 text-center w-full max-w-2xl">
           {/* Logo */}
           <div className="relative mb-8">
             <div className="w-24 h-24 bg-gradient-to-r from-[#00ff9d] to-[#22c55e] rounded-full flex items-center justify-center mx-auto mb-4">
