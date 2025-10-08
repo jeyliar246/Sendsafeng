@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { Check, X, ArrowRight, CreditCard, Calendar, Users } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 const SubscriptionSelection: React.FC = () => {
+  const { isDarkMode } = useTheme();
   const [selectedPlan, setSelectedPlan] = useState<string>('');
   const [currentStep, setCurrentStep] = useState(1);
 
+  // Calculate monthly prices based on NGN 3,000 per delivery
   const packages = [
     {
       name: 'STARTER',
       deliveries: '50 Deliveries/month',
-      price: 'N 140,000/month',
+      price: 'N 150,000/month', // 50 * 3,000
       features: {
         included: ['Dedicated Rider', 'Fast Delivery', 'Priority Request', 'Turn over'],
         excluded: ['Product marketing', 'Social media ads', 'Email Ads', 'Whatsapp ads']
@@ -19,7 +22,7 @@ const SubscriptionSelection: React.FC = () => {
     {
       name: 'GROWTH',
       deliveries: '100 Deliveries/month',
-      price: 'N 280,000/month',
+      price: 'N 300,000/month', // 100 * 3,000
       features: {
         included: ['Dedicated Rider', 'Fast Delivery', 'Priority Request', 'Turn over'],
         excluded: ['Product marketing', 'Social media ads', 'Email Ads', 'Whatsapp ads']
@@ -29,7 +32,7 @@ const SubscriptionSelection: React.FC = () => {
     {
       name: 'BUSINESS',
       deliveries: '300 Deliveries/month',
-      price: 'N 840,000/month',
+      price: 'N 900,000/month', // 300 * 3,000
       features: {
         included: ['Dedicated Rider', 'Fast Delivery', 'Priority Request', 'Turn over'],
         excluded: ['Product marketing', 'Social media ads', 'Email Ads', 'Whatsapp ads']
@@ -39,7 +42,7 @@ const SubscriptionSelection: React.FC = () => {
     {
       name: 'ENTERPRISE',
       deliveries: '1000 Deliveries/month',
-      price: 'N 2,600,000/month',
+      price: 'N 3,000,000/month', // 1000 * 3,000
       features: {
         included: ['Dedicated Rider', 'Fast Delivery', 'Priority Request', 'Turn over', 'Product marketing', 'Social media ads', 'Email Ads', 'Whatsapp ads'],
         excluded: []

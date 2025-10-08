@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { MapPin, Package, User, Phone, Clock, Zap, ArrowRight, ArrowLeft, Check } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 const Home: React.FC = () => {
+  const { isDarkMode } = useTheme();
   const [formData, setFormData] = useState({
     pickupAddress: '',
     dropOffAddress: '',
@@ -87,10 +89,16 @@ const Home: React.FC = () => {
   ];
 
   return (
-    <section className="min-h-screen pt-20 pb-20 flex flex-col justify-center items-center relative">
+    <section className={`min-h-screen pt-20 pb-20 flex flex-col justify-center items-center relative ${
+      isDarkMode ? 'bg-gradient-to-b from-black to-[#0a1a0a]' : 'bg-gradient-to-b from-gray-50 to-gray-100'
+    }`}>
       {/* Animated background elements */}
-      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#00ff9d]/20 rounded-full blur-3xl animate-pulse-slow"></div>
-      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-[#22c55e]/20 rounded-full blur-3xl animate-pulse-slower"></div>
+      <div className={`absolute top-1/4 left-1/4 w-64 h-64 rounded-full blur-3xl animate-pulse-slow ${
+        isDarkMode ? 'bg-[#00ff9d]/20' : 'bg-[#00ff9d]/10'
+      }`}></div>
+      <div className={`absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full blur-3xl animate-pulse-slower ${
+        isDarkMode ? 'bg-[#22c55e]/20' : 'bg-[#22c55e]/10'
+      }`}></div>
       
       <div className="container mx-auto px-4 z-10 w-full max-w-md">
         <div className="text-center mb-8">
@@ -99,12 +107,18 @@ const Home: React.FC = () => {
               Book Your Delivery
             </span>
           </h1>
-          <p className="text-lg text-white/80">
+          <p className={`text-lg ${
+            isDarkMode ? 'text-white/80' : 'text-gray-600'
+          }`}>
             Fast, reliable, and secure delivery services
           </p>
         </div>
 
-        <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+        <div className={`backdrop-blur-sm rounded-2xl p-6 border ${
+          isDarkMode 
+            ? 'bg-white/5 border-white/10' 
+            : 'bg-white/80 border-gray-200 shadow-lg'
+        }`}>
           {/* Progress indicator */}
           <div className="flex justify-between mb-8 relative">
             {steps.map((step, index) => {
@@ -119,12 +133,18 @@ const Home: React.FC = () => {
                       ? 'bg-[#00ff9d] text-black' 
                       : isActive 
                         ? 'bg-[#00ff9d] text-black' 
-                        : 'bg-white/20 text-white/60'
+                        : isDarkMode 
+                          ? 'bg-white/20 text-white/60' 
+                          : 'bg-gray-200 text-gray-600'
                   }`}>
                     {isCompleted ? <Check className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
                   </div>
                   <span className={`text-xs font-medium ${
-                    isActive ? 'text-[#00ff9d]' : 'text-white/60'
+                    isActive 
+                      ? 'text-[#00ff9d]' 
+                      : isDarkMode 
+                        ? 'text-white/60' 
+                        : 'text-gray-600'
                   }`}>
                     {step.title}
                   </span>
@@ -135,42 +155,56 @@ const Home: React.FC = () => {
 
           {/* Step 1: Addresses */}
           {currentStep === 1 && (
-            <div className="space-y-6">
-              <h2 className="text-xl font-bold text-center mb-6">Pickup & Drop-off Addresses</h2>
-              
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-white font-medium">
-                    <MapPin className="w-5 h-5 text-[#00ff9d]" />
-                    Pickup Address *
-                  </label>
-                  <textarea
-                    name="pickupAddress"
-                    value={formData.pickupAddress}
-                    onChange={handleInputChange}
-                    placeholder="Enter pickup address..."
-                    className="w-full p-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:border-[#00ff9d] focus:outline-none resize-none"
-                    rows={3}
-                    required
-                  />
-                </div>
+              <div className="space-y-6">
+                <h2 className={`text-xl font-bold text-center mb-6 ${
+                  isDarkMode ? 'text-white' : 'text-gray-900'
+                }`}>Pickup & Drop-off Addresses</h2>
+                
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label className={`flex items-center gap-2 font-medium ${
+                      isDarkMode ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      <MapPin className="w-5 h-5 text-[#00ff9d]" />
+                      Pickup Address *
+                    </label>
+                    <textarea
+                      name="pickupAddress"
+                      value={formData.pickupAddress}
+                      onChange={handleInputChange}
+                      placeholder="Enter pickup address..."
+                      className={`w-full p-4 border rounded-xl focus:border-[#00ff9d] focus:outline-none resize-none ${
+                        isDarkMode 
+                          ? 'bg-white/10 border-white/20 text-white placeholder-white/60' 
+                          : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                      }`}
+                      rows={3}
+                      required
+                    />
+                  </div>
 
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-white font-medium">
-                    <MapPin className="w-5 h-5 text-[#22c55e]" />
-                    Drop-off Address *
-                  </label>
-                  <textarea
-                    name="dropOffAddress"
-                    value={formData.dropOffAddress}
-                    onChange={handleInputChange}
-                    placeholder="Enter drop-off address..."
-                    className="w-full p-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:border-[#00ff9d] focus:outline-none resize-none"
-                    rows={3}
-                    required
-                  />
+                  <div className="space-y-2">
+                    <label className={`flex items-center gap-2 font-medium ${
+                      isDarkMode ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      <MapPin className="w-5 h-5 text-[#22c55e]" />
+                      Drop-off Address *
+                    </label>
+                    <textarea
+                      name="dropOffAddress"
+                      value={formData.dropOffAddress}
+                      onChange={handleInputChange}
+                      placeholder="Enter drop-off address..."
+                      className={`w-full p-4 border rounded-xl focus:border-[#00ff9d] focus:outline-none resize-none ${
+                        isDarkMode 
+                          ? 'bg-white/10 border-white/20 text-white placeholder-white/60' 
+                          : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                      }`}
+                      rows={3}
+                      required
+                    />
+                  </div>
                 </div>
-              </div>
 
               <button
                 onClick={handleNext}
@@ -365,8 +399,12 @@ const Home: React.FC = () => {
                       <Zap className="w-6 h-6 text-black" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-lg font-bold mb-1">Instant Delivery</h3>
-                      <p className="text-white/80 text-sm mb-2">Get your package delivered within 1-2 hours</p>
+                      <h3 className={`text-lg font-bold mb-1 ${
+                        isDarkMode ? 'text-white' : 'text-gray-900'
+                      }`}>Instant Delivery</h3>
+                      <p className={`text-sm mb-2 ${
+                        isDarkMode ? 'text-white/80' : 'text-gray-600'
+                      }`}>Get your package delivered within 1-2 hours</p>
                       <div className="text-xl font-bold text-[#00ff9d]">NGN 6,500</div>
                     </div>
                   </div>
@@ -386,9 +424,13 @@ const Home: React.FC = () => {
                       <Clock className="w-6 h-6 text-black" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-lg font-bold mb-1">Standard Delivery</h3>
-                      <p className="text-white/80 text-sm mb-2">Get your package delivered within 24 hours</p>
-                      <div className="text-xl font-bold text-[#22c55e]">NGN 3,500</div>
+                      <h3 className={`text-lg font-bold mb-1 ${
+                        isDarkMode ? 'text-white' : 'text-gray-900'
+                      }`}>Standard Delivery</h3>
+                      <p className={`text-sm mb-2 ${
+                        isDarkMode ? 'text-white/80' : 'text-gray-600'
+                      }`}>Get your package delivered within 24 hours</p>
+                      <div className="text-xl font-bold text-[#22c55e]">NGN 3,000</div>
                     </div>
                   </div>
                 </div>
