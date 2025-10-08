@@ -27,20 +27,13 @@ const WelcomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-[#0a1a0a] flex flex-col justify-center items-center relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#00ff9d]/20 rounded-full blur-3xl animate-pulse-slow"></div>
-      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-[#22c55e]/20 rounded-full blur-3xl animate-pulse-slower"></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse"></div>
-      
       {/* Main content */}
       <div className="z-10 text-center">
         {/* Logo */}
         <div className="relative mb-8">
-          <div className="w-24 h-24 bg-gradient-to-r from-[#00ff9d] to-[#22c55e] rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
+          <div className="w-24 h-24 bg-gradient-to-r from-[#00ff9d] to-[#22c55e] rounded-full flex items-center justify-center mx-auto mb-4">
             <Package className="w-12 h-12 text-black" />
           </div>
-          <div className="absolute -inset-2 bg-[#22c55e] blur-sm opacity-70 rounded-full animate-pulse"></div>
-          <div className="absolute -inset-4 bg-[#00ff9d] blur-md opacity-30 rounded-full animate-pulse-slow"></div>
         </div>
 
         {/* App name */}
@@ -76,19 +69,6 @@ const WelcomePage: React.FC = () => {
         </div>
       </div>
 
-      {/* Floating elements */}
-      <div className="absolute top-20 left-20 animate-float">
-        <Package className="w-8 h-8 text-[#00ff9d]/30" />
-      </div>
-      <div className="absolute top-40 right-20 animate-float" style={{ animationDelay: '1s' }}>
-        <Bike className="w-8 h-8 text-[#22c55e]/30" />
-      </div>
-      <div className="absolute bottom-40 left-32 animate-float" style={{ animationDelay: '2s' }}>
-        <Package className="w-6 h-6 text-pink-500/30" />
-      </div>
-      <div className="absolute bottom-20 right-32 animate-float" style={{ animationDelay: '0.5s' }}>
-        <Bike className="w-6 h-6 text-[#16a34a]/30" />
-      </div>
     </div>
   );
 };
