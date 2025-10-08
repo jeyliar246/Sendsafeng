@@ -10,6 +10,7 @@ import DeliverySummary from './components/DeliverySummary';
 import BottomNavigation from './components/BottomNavigation';
 import TermsAndPrivacy from './components/TermsAndPrivacy';
 import { AnimationProvider } from './context/AnimationContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
   // Register service worker for PWA
@@ -56,9 +57,10 @@ function App() {
 
   return (
     <Router>
-      <AnimationProvider>
-        <div className="min-h-screen bg-gradient-to-b from-black to-[#0a1a0a] text-white overflow-hidden">
-          <Routes>
+      <ThemeProvider>
+        <AnimationProvider>
+          <div className="min-h-screen bg-gradient-to-b from-black to-[#0a1a0a] text-white overflow-hidden">
+            <Routes>
             <Route path="/" element={<WelcomePage />} />
             <Route path="/home" element={
               <>
@@ -115,8 +117,9 @@ function App() {
               </>
             } />
           </Routes>
-        </div>
-      </AnimationProvider>
+          </div>
+        </AnimationProvider>
+      </ThemeProvider>
     </Router>
   );
 }

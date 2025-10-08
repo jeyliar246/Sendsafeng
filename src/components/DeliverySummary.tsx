@@ -33,6 +33,14 @@ const DeliverySummary: React.FC = () => {
     specialInstructions: ''
   };
 
+  // Redirect to home if no data is present
+  React.useEffect(() => {
+    if (!location.state?.deliveryData) {
+      console.log('No delivery data found, redirecting to home');
+      navigate('/home');
+    }
+  }, [location.state, navigate]);
+
   const handleWhatsAppRedirect = () => {
     const whatsappNumber = '+2349154607762';
     
