@@ -44,13 +44,27 @@ const DeliverySummary: React.FC = () => {
   const handleWhatsAppRedirect = () => {
     const whatsappNumber = '+2349154607762';
     
+    // Save order to localStorage
+    const order = {
+      id: `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      ...deliveryData,
+      timestamp: Date.now(),
+      status: 'pending' as const
+    };
+
+    const existingOrders = localStorage.getItem('sendsafe_orders');
+    const orders = existingOrders ? JSON.parse(existingOrders) : [];
+    orders.push(order);
+    localStorage.setItem('sendsafe_orders', JSON.stringify(orders));
+    
     // Create a comprehensive message with all delivery details
     const message = `🚚 SendSafe Delivery Booking Request
 
 📋 Order Summary:
+• Order ID: ${order.id}
 • Item: ${deliveryData.itemName}
 • Description: ${deliveryData.itemDescription}
-• Delivery Type: ${deliveryData.deliveryType} (${deliveryData.deliveryType === 'Instant Delivery' ? 'NGN 6,500' : 'NGN 3,500'})
+• Delivery Type: ${deliveryData.deliveryType} (${deliveryData.deliveryType === 'Instant Delivery' ? 'NGN 6,500' : 'NGN 3,000'})
 • Duration: ${deliveryData.deliveryType === 'Instant Delivery' ? '1-2 hours' : '24 hours'}
 
 📍 Addresses:

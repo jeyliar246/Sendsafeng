@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Info, Package, User } from 'lucide-react';
+import { Home, Info, Package, ShoppingBag } from 'lucide-react';
 
 const BottomNavigation: React.FC = () => {
   const location = useLocation();
@@ -25,10 +25,10 @@ const BottomNavigation: React.FC = () => {
       active: location.pathname === '/subscriptions'
     },
     {
-      path: '/profile',
-      icon: User,
-      label: 'Profile',
-      active: location.pathname === '/profile'
+      path: '/orders',
+      icon: ShoppingBag,
+      label: 'Orders',
+      active: location.pathname === '/orders'
     }
   ];
 

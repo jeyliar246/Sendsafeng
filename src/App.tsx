@@ -7,6 +7,7 @@ import About from './components/About';
 import SubscriptionPackages from './components/SubscriptionPackages';
 import SubscriptionSelection from './components/SubscriptionSelection';
 import DeliverySummary from './components/DeliverySummary';
+import MyOrders from './components/MyOrders';
 import BottomNavigation from './components/BottomNavigation';
 import TermsAndPrivacy from './components/TermsAndPrivacy';
 import { AnimationProvider } from './context/AnimationContext';
@@ -103,6 +104,15 @@ function App() {
                 <Header />
                 <main className="pb-20">
                   <DeliverySummary />
+                </main>
+                <BottomNavigation />
+              </>
+            } />
+            <Route path="/orders" element={
+              <>
+                <Header />
+                <main className="pb-20">
+                  <MyOrders />
                 </main>
                 <BottomNavigation />
               </>
