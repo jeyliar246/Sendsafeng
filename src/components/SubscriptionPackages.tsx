@@ -1,5 +1,6 @@
 import React from 'react';
 import { Check, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const SubscriptionPackages: React.FC = () => {
   const packages = [
@@ -107,13 +108,16 @@ const SubscriptionPackages: React.FC = () => {
 
               {/* CTA Button */}
               <div className="mt-6">
-                <button className={`w-full py-3 rounded-xl font-medium transition-all duration-300 ${
-                  pkg.featured
-                    ? 'bg-gradient-to-r from-[#00ff9d] to-[#22c55e] text-black hover:shadow-[0_0_15px_rgba(0,255,157,0.5)]'
-                    : 'bg-white/10 text-white border border-white/20 hover:border-[#00ff9d]/50 hover:text-[#00ff9d]'
-                }`}>
+                <Link 
+                  to="/subscription-selection"
+                  className={`w-full py-3 rounded-xl font-medium transition-all duration-300 block text-center ${
+                    pkg.featured
+                      ? 'bg-gradient-to-r from-[#00ff9d] to-[#22c55e] text-black hover:shadow-[0_0_15px_rgba(0,255,157,0.5)]'
+                      : 'bg-white/10 text-white border border-white/20 hover:border-[#00ff9d]/50 hover:text-[#00ff9d]'
+                  }`}
+                >
                   {pkg.featured ? 'Most Popular' : 'Choose Plan'}
-                </button>
+                </Link>
               </div>
             </div>
           ))}
