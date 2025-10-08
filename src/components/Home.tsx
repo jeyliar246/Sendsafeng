@@ -382,7 +382,7 @@ const Home: React.FC = () => {
                     <div className="flex-1">
                       <h3 className="text-lg font-bold mb-1 text-white">Standard Delivery</h3>
                       <p className="text-sm mb-2 text-white/80">Get your package delivered within 24 hours</p>
-                      <div className="text-xl font-bold text-[#22c55e]">NGN 4,000</div>
+                      <div className="text-xl font-bold text-[#22c55e]">NGN 4,500</div>
                     </div>
                   </div>
                 </div>

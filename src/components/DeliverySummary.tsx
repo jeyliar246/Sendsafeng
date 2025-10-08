@@ -64,7 +64,7 @@ const DeliverySummary: React.FC = () => {
 • Order ID: ${order.id}
 • Item: ${deliveryData.itemName}
 • Description: ${deliveryData.itemDescription}
-• Delivery Type: ${deliveryData.deliveryType} (${deliveryData.deliveryType === 'Instant Delivery' ? 'NGN 6,500' : deliveryData.deliveryType === 'Interstate Delivery' ? 'NGN 12,500' : 'NGN 4,000'})
+• Delivery Type: ${deliveryData.deliveryType} (${deliveryData.deliveryType === 'Instant Delivery' ? 'NGN 6,500' : deliveryData.deliveryType === 'Interstate Delivery' ? 'NGN 12,500' : 'NGN 4,500'})
 • Duration: ${deliveryData.deliveryType === 'Instant Delivery' ? '1-2 hours' : deliveryData.deliveryType === 'Interstate Delivery' ? '1-3 days' : '24 hours'}
 
 📍 Addresses:
@@ -125,7 +125,7 @@ Please assist me with this delivery booking and provide real-time tracking updat
                   {deliveryData.deliveryType}
                 </h3>
                 <p className="text-sm text-white/80">
-                  {deliveryData.deliveryType === 'Instant Delivery' ? '1-2 hours' : deliveryData.deliveryType === 'Interstate Delivery' ? '1-3 days' : '24 hours'} • {deliveryData.deliveryType === 'Instant Delivery' ? 'NGN 6,500' : deliveryData.deliveryType === 'Interstate Delivery' ? 'NGN 12,500' : 'NGN 4,000'}
+                  {deliveryData.deliveryType === 'Instant Delivery' ? '1-2 hours' : deliveryData.deliveryType === 'Interstate Delivery' ? '1-3 days' : '24 hours'} • {deliveryData.deliveryType === 'Instant Delivery' ? 'NGN 6,500' : deliveryData.deliveryType === 'Interstate Delivery' ? 'NGN 12,500' : 'NGN 4,500'}
                 </p>
               </div>
             </div>
