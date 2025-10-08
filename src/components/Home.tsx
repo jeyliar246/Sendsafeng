@@ -348,23 +348,19 @@ const Home: React.FC = () => {
                 {/* Instant Delivery */}
                 <div 
                   className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
-                    formData.deliveryType === 'instant' 
+                    formData.deliveryType === 'Instant Delivery' 
                       ? 'border-[#00ff9d] bg-[#00ff9d]/10' 
                       : 'border-white/20 bg-white/5 hover:border-[#00ff9d]/50'
                   }`}
-                  onClick={() => handleDeliveryTypeSelect('instant')}
+                  onClick={() => handleDeliveryTypeSelect('Instant Delivery')}
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-gradient-to-r from-[#00ff9d] to-[#22c55e] rounded-full flex items-center justify-center">
                       <Zap className="w-6 h-6 text-black" />
                     </div>
                     <div className="flex-1">
-                      <h3 className={`text-lg font-bold mb-1 ${
-                        isDarkMode ? 'text-white' : 'text-gray-900'
-                      }`}>Instant Delivery</h3>
-                      <p className={`text-sm mb-2 ${
-                        isDarkMode ? 'text-white/80' : 'text-gray-600'
-                      }`}>Get your package delivered within 1-2 hours</p>
+                      <h3 className="text-lg font-bold mb-1 text-white">Instant Delivery</h3>
+                      <p className="text-sm mb-2 text-white/80">Get your package delivered within 1-2 hours</p>
                       <div className="text-xl font-bold text-[#00ff9d]">NGN 6,500</div>
                     </div>
                   </div>
@@ -373,23 +369,19 @@ const Home: React.FC = () => {
                 {/* Standard Delivery */}
                 <div 
                   className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
-                    formData.deliveryType === 'standard' 
+                    formData.deliveryType === 'Standard Delivery' 
                       ? 'border-[#00ff9d] bg-[#00ff9d]/10' 
                       : 'border-white/20 bg-white/5 hover:border-[#00ff9d]/50'
                   }`}
-                  onClick={() => handleDeliveryTypeSelect('standard')}
+                  onClick={() => handleDeliveryTypeSelect('Standard Delivery')}
                 >
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-gradient-to-r from-[#22c55e] to-[#16a34a] rounded-full flex items-center justify-center">
                       <Clock className="w-6 h-6 text-black" />
                     </div>
                     <div className="flex-1">
-                      <h3 className={`text-lg font-bold mb-1 ${
-                        isDarkMode ? 'text-white' : 'text-gray-900'
-                      }`}>Standard Delivery</h3>
-                      <p className={`text-sm mb-2 ${
-                        isDarkMode ? 'text-white/80' : 'text-gray-600'
-                      }`}>Get your package delivered within 24 hours</p>
+                      <h3 className="text-lg font-bold mb-1 text-white">Standard Delivery</h3>
+                      <p className="text-sm mb-2 text-white/80">Get your package delivered within 24 hours</p>
                       <div className="text-xl font-bold text-[#22c55e]">NGN 3,000</div>
                     </div>
                   </div>
