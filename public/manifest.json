@@ -4,12 +4,17 @@
   "description": "Fast, reliable, and secure delivery services across Nigeria",
   "start_url": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
   "background_color": "#000000",
   "theme_color": "#00ff9d",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "en",
   "categories": ["business", "productivity", "utilities"],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
   "icons": [
     {
       "src": "/icons/icon-72x72.png",
