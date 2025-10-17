@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Package, User, Phone, Clock, Zap, ArrowRight, ArrowLeft, Check, Truck } from 'lucide-react';
+import { MapPin, Package, User, Phone, Clock, Zap, ArrowRight, ArrowLeft, Check, Truck, Weight, Car } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
@@ -14,7 +14,9 @@ const Home: React.FC = () => {
     receiverName: '',
     receiverPhone: '',
     deliveryType: '',
-    specialInstructions: ''
+    specialInstructions: '',
+    itemWeight: '',
+    vehicleType: ''
   });
 
   const [currentStep, setCurrentStep] = useState(1);
@@ -34,6 +36,13 @@ const Home: React.FC = () => {
     }));
   };
 
+  const handleVehicleSelect = (vehicle: string) => {
+    setFormData(prev => ({
+      ...prev,
+      vehicleType: vehicle
+    }));
+  };
+
   const validateStep = (step: number): boolean => {
     switch (step) {
       case 1:
@@ -45,6 +54,8 @@ const Home: React.FC = () => {
                formData.receiverName.trim() !== '' && formData.receiverPhone.trim() !== '';
       case 4:
         return formData.deliveryType !== '';
+      case 5:
+        return formData.itemWeight.trim() !== '' && formData.vehicleType !== '';
       default:
         return false;
     }
@@ -75,7 +86,8 @@ const Home: React.FC = () => {
     { number: 1, title: 'Addresses', icon: MapPin },
     { number: 2, title: 'Item Details', icon: Package },
     { number: 3, title: 'Contact Info', icon: User },
-    { number: 4, title: 'Delivery Type', icon: Zap }
+    { number: 4, title: 'Delivery Type', icon: Zap },
+    { number: 5, title: 'Weight & Vehicle', icon: Weight }
   ];
 
   return (
@@ -404,6 +416,143 @@ const Home: React.FC = () => {
                       <h3 className="text-lg font-bold mb-1 text-white">Interstate Delivery</h3>
                       <p className="text-sm mb-2 text-white/80">Get your package delivered within 1-3 days</p>
                       <div className="text-xl font-bold text-[#3b82f6]">NGN 12,500</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <button
+                  onClick={handleBack}
+                  className="flex-1 py-3 rounded-xl text-white font-medium border border-white/30 hover:border-[#22c55e] hover:text-[#22c55e] transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                  Back
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="flex-1 bg-gradient-to-r from-[#00ff9d] to-[#22c55e] py-3 rounded-xl text-white font-medium hover:shadow-[0_0_20px_rgba(0,255,157,0.6)] transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  Next Step
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Step 5: Weight & Vehicle Selection */}
+          {currentStep === 5 && (
+            <div className="space-y-6">
+              <h2 className="text-xl font-bold text-center mb-6">Weight & Vehicle Selection</h2>
+              
+              <div className="space-y-4">
+                {/* Weight Input */}
+                <div className="space-y-2">
+                  <label className="flex items-center gap-2 text-white font-medium">
+                    <Weight className="w-5 h-5 text-[#00ff9d]" />
+                    Item Weight (kg) *
+                  </label>
+                  <input
+                    type="number"
+                    name="itemWeight"
+                    value={formData.itemWeight}
+                    onChange={handleInputChange}
+                    placeholder="Enter weight in kilograms..."
+                    min="0"
+                    step="0.1"
+                    className="w-full p-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:border-[#00ff9d] focus:outline-none"
+                    required
+                  />
+                </div>
+
+                {/* Vehicle Selection */}
+                <div className="space-y-3">
+                  <label className="flex items-center gap-2 text-white font-medium">
+                    <Car className="w-5 h-5 text-[#22c55e]" />
+                    Select Vehicle *
+                  </label>
+                  
+                  {/* Bike */}
+                  <div 
+                    className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
+                      formData.vehicleType === 'Bike' 
+                        ? 'border-[#00ff9d] bg-[#00ff9d]/10' 
+                        : 'border-white/20 bg-white/5 hover:border-[#00ff9d]/50'
+                    }`}
+                    onClick={() => handleVehicleSelect('Bike')}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-r from-[#00ff9d] to-[#22c55e] rounded-full flex items-center justify-center">
+                        <span className="text-black font-bold text-lg">🚲</span>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold mb-1 text-white">Bike</h3>
+                        <p className="text-sm mb-2 text-white/80">Perfect for small packages and documents</p>
+                        <div className="text-xl font-bold text-[#00ff9d]">No additional cost</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Car */}
+                  <div 
+                    className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
+                      formData.vehicleType === 'Car' 
+                        ? 'border-[#00ff9d] bg-[#00ff9d]/10' 
+                        : 'border-white/20 bg-white/5 hover:border-[#00ff9d]/50'
+                    }`}
+                    onClick={() => handleVehicleSelect('Car')}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-r from-[#22c55e] to-[#16a34a] rounded-full flex items-center justify-center">
+                        <span className="text-black font-bold text-lg">🚗</span>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold mb-1 text-white">Car</h3>
+                        <p className="text-sm mb-2 text-white/80">Ideal for medium-sized packages</p>
+                        <div className="text-xl font-bold text-[#22c55e]">+ NGN 5,000</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Van */}
+                  <div 
+                    className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
+                      formData.vehicleType === 'Van' 
+                        ? 'border-[#00ff9d] bg-[#00ff9d]/10' 
+                        : 'border-white/20 bg-white/5 hover:border-[#00ff9d]/50'
+                    }`}
+                    onClick={() => handleVehicleSelect('Van')}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-r from-[#3b82f6] to-[#2563eb] rounded-full flex items-center justify-center">
+                        <span className="text-black font-bold text-lg">🚐</span>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold mb-1 text-white">Van</h3>
+                        <p className="text-sm mb-2 text-white/80">Great for larger packages and bulk items</p>
+                        <div className="text-xl font-bold text-[#3b82f6]">+ NGN 15,000</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Truck */}
+                  <div 
+                    className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
+                      formData.vehicleType === 'Truck' 
+                        ? 'border-[#00ff9d] bg-[#00ff9d]/10' 
+                        : 'border-white/20 bg-white/5 hover:border-[#00ff9d]/50'
+                    }`}
+                    onClick={() => handleVehicleSelect('Truck')}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-r from-[#ef4444] to-[#dc2626] rounded-full flex items-center justify-center">
+                        <Truck className="w-6 h-6 text-black" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold mb-1 text-white">Truck</h3>
+                        <p className="text-sm mb-2 text-white/80">For heavy and oversized items</p>
+                        <div className="text-xl font-bold text-[#ef4444]">+ NGN 300,000</div>
+                      </div>
                     </div>
                   </div>
                 </div>

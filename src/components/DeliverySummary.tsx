@@ -13,6 +13,8 @@ interface DeliveryData {
   receiverPhone: string;
   deliveryType: string;
   specialInstructions: string;
+  itemWeight: string;
+  vehicleType: string;
 }
 
 const DeliverySummary: React.FC = () => {
@@ -30,7 +32,9 @@ const DeliverySummary: React.FC = () => {
     receiverName: '',
     receiverPhone: '',
     deliveryType: '',
-    specialInstructions: ''
+    specialInstructions: '',
+    itemWeight: '',
+    vehicleType: ''
   };
 
   // Redirect to home if no data is present
@@ -40,6 +44,53 @@ const DeliverySummary: React.FC = () => {
       navigate('/home');
     }
   }, [location.state, navigate]);
+
+  // Calculate pricing based on delivery type and vehicle
+  const calculatePricing = () => {
+    let basePrice = 0;
+    let vehicleSurcharge = 0;
+
+    // Base delivery type pricing
+    switch (deliveryData.deliveryType) {
+      case 'Instant Delivery':
+        basePrice = 6500;
+        break;
+      case 'Standard Delivery':
+        basePrice = 4500;
+        break;
+      case 'Interstate Delivery':
+        basePrice = 12500;
+        break;
+      default:
+        basePrice = 0;
+    }
+
+    // Vehicle surcharge pricing
+    switch (deliveryData.vehicleType) {
+      case 'Bike':
+        vehicleSurcharge = 0;
+        break;
+      case 'Car':
+        vehicleSurcharge = 5000;
+        break;
+      case 'Van':
+        vehicleSurcharge = 15000;
+        break;
+      case 'Truck':
+        vehicleSurcharge = 300000;
+        break;
+      default:
+        vehicleSurcharge = 0;
+    }
+
+    return {
+      basePrice,
+      vehicleSurcharge,
+      totalPrice: basePrice + vehicleSurcharge
+    };
+  };
+
+  const pricing = calculatePricing();
 
   const handleWhatsAppRedirect = () => {
     const whatsappNumber = '+2349154607762';
@@ -64,8 +115,15 @@ const DeliverySummary: React.FC = () => {
 • Order ID: ${order.id}
 • Item: ${deliveryData.itemName}
 • Description: ${deliveryData.itemDescription}
-• Delivery Type: ${deliveryData.deliveryType} (${deliveryData.deliveryType === 'Instant Delivery' ? 'NGN 6,500' : deliveryData.deliveryType === 'Interstate Delivery' ? 'NGN 12,500' : 'NGN 4,500'})
+• Weight: ${deliveryData.itemWeight} kg
+• Vehicle: ${deliveryData.vehicleType}
+• Delivery Type: ${deliveryData.deliveryType}
 • Duration: ${deliveryData.deliveryType === 'Instant Delivery' ? '1-2 hours' : deliveryData.deliveryType === 'Interstate Delivery' ? '1-3 days' : '24 hours'}
+
+💰 Pricing Breakdown:
+• Base Price (${deliveryData.deliveryType}): NGN ${pricing.basePrice.toLocaleString()}
+• Vehicle Surcharge (${deliveryData.vehicleType}): NGN ${pricing.vehicleSurcharge.toLocaleString()}
+• Total Price: NGN ${pricing.totalPrice.toLocaleString()}
 
 📍 Addresses:
 • Pickup: ${deliveryData.pickupAddress}
@@ -125,7 +183,7 @@ Please assist me with this delivery booking and provide real-time tracking updat
                   {deliveryData.deliveryType}
                 </h3>
                 <p className="text-sm text-white/80">
-                  {deliveryData.deliveryType === 'Instant Delivery' ? '1-2 hours' : deliveryData.deliveryType === 'Interstate Delivery' ? '1-3 days' : '24 hours'} • {deliveryData.deliveryType === 'Instant Delivery' ? 'NGN 6,500' : deliveryData.deliveryType === 'Interstate Delivery' ? 'NGN 12,500' : 'NGN 4,500'}
+                  {deliveryData.deliveryType === 'Instant Delivery' ? '1-2 hours' : deliveryData.deliveryType === 'Interstate Delivery' ? '1-3 days' : '24 hours'} • Base Price: NGN {pricing.basePrice.toLocaleString()}
                 </p>
               </div>
             </div>
@@ -154,6 +212,20 @@ Please assist me with this delivery booking and provide real-time tracking updat
               <div className="p-3 rounded-lg border border-white/20 bg-white/5">
                 <div className="text-sm text-white/60 mb-1">Description</div>
                 <div className="font-medium text-white">{deliveryData.itemDescription}</div>
+              </div>
+              <div className="p-3 rounded-lg border border-white/20 bg-white/5">
+                <div className="text-sm text-white/60 mb-1">Weight</div>
+                <div className="font-medium text-white">{deliveryData.itemWeight} kg</div>
+              </div>
+              <div className="p-3 rounded-lg border border-white/20 bg-white/5">
+                <div className="text-sm text-white/60 mb-1">Vehicle Type</div>
+                <div className="font-medium text-white">{deliveryData.vehicleType}</div>
+                <div className="text-sm text-white/60">
+                  {deliveryData.vehicleType === 'Bike' ? 'No additional cost' : 
+                   deliveryData.vehicleType === 'Car' ? '+ NGN 5,000' :
+                   deliveryData.vehicleType === 'Van' ? '+ NGN 15,000' :
+                   deliveryData.vehicleType === 'Truck' ? '+ NGN 300,000' : ''}
+                </div>
               </div>
             </div>
           </div>
@@ -235,6 +307,37 @@ Please assist me with this delivery booking and provide real-time tracking updat
               </div>
             </div>
           )}
+
+          {/* Pricing Summary */}
+          <div className="p-4 rounded-xl mb-6 bg-gradient-to-r from-[#00ff9d]/10 to-[#22c55e]/10 border border-[#00ff9d]/20">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-[#00ff9d] to-[#22c55e] rounded-full flex items-center justify-center">
+                <span className="text-black font-bold text-lg">₦</span>
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-white">
+                  Pricing Summary
+                </h3>
+                <p className="text-sm text-white/80">
+                  Total cost breakdown
+                </p>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center p-3 rounded-lg border border-white/20 bg-white/5">
+                <div className="text-white/80">Base Price ({deliveryData.deliveryType})</div>
+                <div className="font-semibold text-white">NGN {pricing.basePrice.toLocaleString()}</div>
+              </div>
+              <div className="flex justify-between items-center p-3 rounded-lg border border-white/20 bg-white/5">
+                <div className="text-white/80">Vehicle Surcharge ({deliveryData.vehicleType})</div>
+                <div className="font-semibold text-white">NGN {pricing.vehicleSurcharge.toLocaleString()}</div>
+              </div>
+              <div className="flex justify-between items-center p-3 rounded-lg border-2 border-[#00ff9d]/50 bg-[#00ff9d]/10">
+                <div className="text-white font-semibold">Total Price</div>
+                <div className="font-bold text-[#00ff9d] text-xl">NGN {pricing.totalPrice.toLocaleString()}</div>
+              </div>
+            </div>
+          </div>
 
           {/* WhatsApp Note */}
           <div className="p-4 rounded-xl mb-6 bg-blue-500/10 border border-blue-500/20">
