@@ -5,6 +5,7 @@ import { Package, Smartphone, Share, MoreVertical, X, Apple, Download, Bike } fr
 const WelcomePage: React.FC = () => {
   const navigate = useNavigate();
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [vendorCount, setVendorCount] = useState(0);
   const [showInstructions, setShowInstructions] = useState(true);
   const [showAppStoreModal, setShowAppStoreModal] = useState(false);
   const [appStoreType, setAppStoreType] = useState<'apple' | 'google'>('apple');
@@ -12,19 +13,25 @@ const WelcomePage: React.FC = () => {
   useEffect(() => {
     // Start loading after showing instructions
     if (!showInstructions) {
+      const startTime = Date.now();
+      const duration = 15000; // 15 seconds
+      
       const interval = setInterval(() => {
-        setLoadingProgress(prev => {
-          const newProgress = prev >= 100 ? 100 : prev + 1;
-          if (newProgress >= 100) {
-            clearInterval(interval);
-            // Navigate to home page after loading completes
-            setTimeout(() => {
-              navigate('/home');
-            }, 500);
-          }
-          return newProgress;
-        });
-      }, 100);
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min((elapsed / duration) * 100, 100);
+        const vendorProgress = Math.min((elapsed / duration) * 137, 137);
+        
+        setLoadingProgress(progress);
+        setVendorCount(Math.floor(vendorProgress));
+        
+        if (progress >= 100) {
+          clearInterval(interval);
+          // Navigate to home page after loading completes
+          setTimeout(() => {
+            navigate('/home');
+          }, 500);
+        }
+      }, 50); // Update every 50ms for smoother animation
 
       return () => {
         clearInterval(interval);
@@ -176,10 +183,20 @@ const WelcomePage: React.FC = () => {
           </p>
 
           {/* Loading animation */}
-          <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-6">
             <div className="flex items-center gap-2 text-white/60">
               <Bike className="w-5 h-5 animate-spin" />
               <span>Loading...</span>
+            </div>
+            
+            {/* Vendor Countdown */}
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-bold text-[#00ff9d] mb-2">
+                {vendorCount}
+              </div>
+              <p className="text-lg text-white/80 max-w-md mx-auto">
+                Over {vendorCount} vendors are using SendSafe for delivery
+              </p>
             </div>
             
             {/* Progress bar */}
@@ -191,7 +208,7 @@ const WelcomePage: React.FC = () => {
             </div>
             
             <div className="text-sm text-white/60">
-              {loadingProgress}%
+              {Math.round(loadingProgress)}%
             </div>
           </div>
         </div>
